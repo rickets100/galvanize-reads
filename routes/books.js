@@ -48,18 +48,18 @@ router.get('/:id/edit', (req, res, next) => {
   .where({ id })
   .first()
   .then(book => {
-    console.log('HEYyYYyYYYYY')
     res.render('newbook', { book })
   })
 })
+
 // ======== ADD ONE BOOK ========
 router.post('/', function (req, res, next) {
-  console.log('*********ADD ONE BOOK ', book)
 
   let error = {status: 400, message: 'Not a valid entry.'}
   let itemToAdd = req.body
+  console.log('*********ADD ONE BOOK ', itemToAdd)
 
-  if (!(itemToAdd.name)) {
+  if (!(itemToAdd.title)) {
     next(error)
   } else {
     console.log('made it to the else statement');

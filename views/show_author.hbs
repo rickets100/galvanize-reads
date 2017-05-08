@@ -7,7 +7,7 @@
       <h3>{{ author.last_name }}</h3>
       <img src="{{ author.portrait_url }}"alt="{{ author.last_name }}" class="responsive-img">
       <h6>{{ author.biography }}</h6>
-      <a href="/{{ author.id }}/edit" type="button" class="btn btn-success" name="button">Edit</a>
+      <a href="/authors/{{ author.id }}/edit" type="button" class="btn btn-success" name="button">Edit</a>
       <div class="btn-inline">
         <form action="/authors/{{ this.id }}?_method=DELETE" method="POST"><input type="submit" class="btn btn-danger del-button" name="delete" value="Delete">
         </form>

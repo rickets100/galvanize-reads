@@ -4,8 +4,6 @@ var knex = require('../db/connection')
 
 // ===== GET ALL AUTHORS =====
   router.get('/', function(req, res, next) {
-    console.log('Get All Authors')
-    console.log('req.body is ', req.body)
   knex('authors').select('*')
   .then(authors => {
     res.render('authors', { authors })
@@ -17,14 +15,12 @@ var knex = require('../db/connection')
 
 // ======== FORM ========
 router.get('/new', (req, res, next) => {
-  console.log('*********** ADD AN AUTHOR Form')
+  console.log('*********** get /new')
   res.render('newauthor')
 })
 
 // ===== GET ONE AUTHOR =====
   router.get('/:id', function(req, res, next) {
-    console.log('Get One Author')
-    console.log('req.params.id is ', req.params.id)
 
   let id = req.params.id
 
@@ -42,6 +38,8 @@ router.get('/new', (req, res, next) => {
 
 // ===== EDIT AN AUTHOR =====
 router.get('/:id/edit', (req, res, next) => {
+  console.log('*********** EDIT AN AUTHOR')
+
   var id = req.params.id
 
   knex('authors')
@@ -55,6 +53,8 @@ router.get('/:id/edit', (req, res, next) => {
 
 // ======== ADD ONE AUTHOR ========
 router.post('/', function (req, res, next) {
+  console.log('*********** ADD AN AUTHOR Form')
+
   let error = {status: 400, message: 'Not a valid entry.'}
   let itemToAdd = req.body
 
