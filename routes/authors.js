@@ -22,14 +22,35 @@ router.get('/new', (req, res, next) => {
 // ===== GET ONE AUTHOR =====
   router.get('/:id', function(req, res, next) {
 
-  let id = req.params.id
+  let authorId = req.params.id
 
   knex('authors')
   .select('*')
-  .where('id', id)
+  .where('id', authorId)
   .first()
-  .then(author => {
-    res.render('show_author', { author })
+  .then(authorInfo => {
+    knex('books_authors')
+    .innerJoin('books', 'books.id', 'books_authors.book_id')
+    .select('*')
+    .where('books_authors.author_id', authorInfo.id)
+    .then(book => {
+      let bookTitle = book[0].title
+      let bookGenre = book[0].genre
+      let bookDescription = book[0].description
+
+      let author = {
+        authorId: authorInfo.id,
+        first_name: authorInfo.first_name,
+        last_name: authorInfo.last_name,
+        biography: authorInfo.biography,
+        portrait_url: authorInfo.portrait_url,
+        bookId: book[0].id,
+        book_title: bookTitle,
+        book_genre: bookGenre,
+        book_description: bookDescription
+      }
+      res.render('show_author', { author })
+    })
   })
   .catch((err) => {
     next(err)
@@ -38,7 +59,7 @@ router.get('/new', (req, res, next) => {
 
 // ===== EDIT AN AUTHOR =====
 router.get('/:id/edit', (req, res, next) => {
-
+  console.log('edit an author ++++++++++');
   let id = req.params.id
 
   knex('authors')
@@ -69,6 +90,25 @@ router.post('/', function (req, res, next) {
       res.send(err)
     })
   }
+})
+
+// ======== UPDATE ONE AUTHOR ========
+router.put ('/:id', function(req, res, next) {
+  let id = req.params.id
+  let author = {
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    biography: req.body.biography,
+    portrait_url: req.body.portrait_url
+  }
+  knex('authors')
+  .update('author', '*')
+  .where('id', id)
+  .then((result) => {
+  })
+  .catch((err) => {
+    res.send(err)
+  })
 })
 
 // ======== DELETE ONE AUTHOR ========

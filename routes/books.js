@@ -93,20 +93,32 @@ router.post('/', function (req, res, next) {
 // ======== UPDATE ONE BOOK ========
 router.put ('/:id', function(req, res, next) {
   let id = req.params.id
-  let message = {
+  console.log('update one book, req.body is', req.body)
+  console.log('and req.params.id is ', req.params.id)
+  let book = req.body
+  knex('books')
+  .where('id', id)
+  .update({
     title: req.body.title,
     genre: req.body.genre,
     description: req.body.description,
     cover_url: req.body.cover_url
-  }
-  knex('books')
-  .update('book', '*')
-  .where('id', id)
+  })
   .then((result) => {
+    console.log('made it to the then', result)
+    res.redirect('/')
   })
   .catch((err) => {
     res.send(err)
   })
+})
+
+
+knex('books')
+.where('published_date', '<', 2000)
+.update({
+  status: 'archived',
+  thisKeyIsSkipped: undefined
 })
 
 // ======== DELETE ONE BOOK ========
