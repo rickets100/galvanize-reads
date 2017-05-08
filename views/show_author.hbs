@@ -9,7 +9,7 @@
       <h6>{{ author.biography }}</h6>
       <a href="/{{ author.id }}/edit" type="button" class="btn btn-success" name="button">Edit</a>
       <div class="btn-inline">
-        <form action="{{ this.id }}?_method=DELETE" method="POST"><input type="submit" class="btn btn-danger del-button" name="delete" value="Delete">
+        <form action="/authors/{{ this.id }}?_method=DELETE" method="POST"><input type="submit" class="btn btn-danger del-button" name="delete" value="Delete">
         </form>
       </div>
   </div>

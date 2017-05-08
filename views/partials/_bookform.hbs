@@ -1,3 +1,5 @@
+<h1>Add a Book</h1>
+
 <form method="POST" action="/{{#if book.id }}{{ book.id }}?_method=PUT{{/if}}" class="well">
   <div class="row">
     <div class="col-md-6">
@@ -8,8 +10,20 @@
     </div>
     <div class="col-md-6">
       <div class="form-group">
+        <label for="genre">Genre</label>
+        <input type="text" name="genre" class="form-control" id="genre" placeholder="Genre" value="{{ book.genre }}">
+      </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
         <label for="description">Description</label>
         <input type="text" name="description" class="form-control" id="description" placeholder="Description" value="{{ book.description }}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="cover_url">Book Cover URL</label>
+        <input type="text" name="cover_url" class="form-control" id="cover_url" placeholder="cover_url" value="{{ book.cover_url }}">
       </div>
     </div>
   </div>

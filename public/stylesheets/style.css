@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.btn-container {
+  width:100%;
+  text-align: center;
+}
+
+.btn-inline {
+   display: inline-block;
+}

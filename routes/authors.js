@@ -15,6 +15,12 @@ var knex = require('../db/connection')
   })
 })
 
+// ======== FORM ========
+router.get('/new', (req, res, next) => {
+  console.log('*********** ADD AN AUTHOR Form')
+  res.render('newauthor')
+})
+
 // ===== GET ONE AUTHOR =====
   router.get('/:id', function(req, res, next) {
     console.log('Get One Author')
@@ -31,6 +37,19 @@ var knex = require('../db/connection')
   })
   .catch((err) => {
     next(err)
+  })
+})
+
+// ===== EDIT AN AUTHOR =====
+router.get('/:id/edit', (req, res, next) => {
+  var id = req.params.id
+
+  knex('authors')
+  .select('*')
+  .where({ id })
+  .first()
+  .then(author => {
+    res.render('newauthor', { author })
   })
 })
 

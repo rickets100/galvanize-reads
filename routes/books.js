@@ -4,8 +4,7 @@ const knex = require('../db/connection')
 
 // ===== GET ALL BOOKS =====
   router.get('/', function(req, res, next) {
-    console.log('Get All Books')
-    console.log('req.body is ', req.body)
+    console.log('***********Get All Books')
   knex('books').select('*')
   .then(books => {
     res.render('books', { books })
@@ -17,7 +16,8 @@ const knex = require('../db/connection')
 
 // ======== FORM ========
 router.get('/new', (req, res, next) => {
-  res.render('new')
+  console.log('***********ADD A BOOK Form')
+  res.render('newbook')
 })
 
 // ===== GET ONE BOOK =====
@@ -39,9 +39,22 @@ router.get('/new', (req, res, next) => {
   })
 })
 
+// ===== EDIT A BOOK =====
+router.get('/:id/edit', (req, res, next) => {
+  var id = req.params.id
+
+  knex('books')
+  .select('*')
+  .where({ id })
+  .first()
+  .then(book => {
+    console.log('HEYyYYyYYYYY')
+    res.render('newbook', { book })
+  })
+})
 // ======== ADD ONE BOOK ========
 router.post('/', function (req, res, next) {
-  console.log('ADD ONE BOOK ', book)
+  console.log('*********ADD ONE BOOK ', book)
 
   let error = {status: 400, message: 'Not a valid entry.'}
   let itemToAdd = req.body
@@ -49,6 +62,7 @@ router.post('/', function (req, res, next) {
   if (!(itemToAdd.name)) {
     next(error)
   } else {
+    console.log('made it to the else statement');
     knex('books')
     .insert(itemToAdd, '*')
     .then((newItem) => {

@@ -1,0 +1,43 @@
+<h1>Add an Author</h1>
+
+<form method="POST" action="/{{#if author.id }}{{ author.id }}?_method=PUT{{/if}}" class="well">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" class="form-control" id="first_name" placeholder="Title" value="{{ author.first_name }}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name" value="{{ author.last_name }}">
+      </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="biography">Biography</label>
+        <input type="text" name="biography" class="form-control" id="biography" placeholder="Biography" value="{{ author.biography }}">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="portrait_url">Portrait URL</label>
+        <input type="text" name="portrait_url" class="form-control" id="portrait_url" placeholder="portrait_url" value="{{ author.portrait_url }}">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
