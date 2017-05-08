@@ -17,7 +17,6 @@ const knex = require('../db/connection')
 
 // ===== GET ONE BOOK =====
   router.get('/:id', function(req, res, next) {
-    console.log('Get One Book')
     console.log('req.params.id is ', req.params.id)
 
   let id = req.params.id
@@ -27,6 +26,7 @@ const knex = require('../db/connection')
   .where('id', id)
   .first()
   .then(book => {
+    console.log('get one book, book is ', book)
     res.render('show_book', { book })
   })
   .catch((err) => {
@@ -34,4 +34,23 @@ const knex = require('../db/connection')
   })
 })
 
+// ======== DELETE ONE BOOK ========
+router.delete('/:id', (req, res, next) => {
+  let id = req.params.id
+
+  knex('books')
+  .del()
+  .where('id', id)
+  .then((result) => {
+    res.redirect('/books')
+  })
+  .catch((err) => {
+    res.send(err)
+  })
+})
+
+// let truckSched = knex('books_authors')
+// .innerJoin('books', 'books.id', 'books_authors.book_id')
+// .where('books_authors.book_id', id)
+// .select('books.title', 'books_authors.author_id')
 module.exports = router

@@ -33,4 +33,21 @@ var knex = require('../db/connection')
     next(err)
   })
 })
+
+// ======== DELETE ONE AUTHOR ========
+router.delete('/:id', (req, res, next) => {
+  let id = req.params.id
+
+  knex('authors')
+  .del()
+  .where('id', id)
+  .then((result) => {
+    res.redirect('/authors')
+  })
+  .catch((err) => {
+    res.send(err)
+  })
+})
+
+
 module.exports = router
