@@ -18,7 +18,7 @@ const knex = require('../db/connection')
 // ===== GET ONE BOOK =====
   router.get('/:id', function(req, res, next) {
     console.log('Get One Book')
-    console.log('req.params.id is ', req.params.id);
+    console.log('req.params.id is ', req.params.id)
 
   let id = req.params.id
 
