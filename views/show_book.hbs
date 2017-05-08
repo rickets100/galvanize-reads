@@ -1,11 +1,12 @@
 <div class="container">
 <div class="row"></div>
-<a href="/authors/{{ book.authorId }}"  name="button">{{book.author_full}}</a>
 
 <div class="row"></div>
   <div class="row">
     <div class="col m6 offset-m3 center-align">
       <h3>{{ book.title }}</h3>
+      <h4><a href="/authors/{{ book.authorId }}"  name="button">{{book.author_full}}</a></h4>
+
       <img src="{{ book.cover_url }}"alt="{{ book.title }}" class="responsive-img">
       <h5>{{ book.genre }}</h5>
       <h6>{{ book.description }}</h6>

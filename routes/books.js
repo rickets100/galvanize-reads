@@ -3,7 +3,7 @@ const router = express.Router()
 const knex = require('../db/connection')
 
 // ===== GET ALL BOOKS =====
-  router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
   knex('books').select('*')
   .then(books => {
     res.render('books', { books })
@@ -15,14 +15,12 @@ const knex = require('../db/connection')
 
 // ======== FORM ========
 router.get('/new', (req, res, next) => {
-  console.log('***********ADD A BOOK Form')
   res.render('newbook')
 })
 
 // ===== GET ONE BOOK =====
-  router.get('/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   let bookId = req.params.id
-
 
   knex('books')
   .select('*')
@@ -49,8 +47,6 @@ router.get('/new', (req, res, next) => {
         author_last: authorLast,
         author_full: authorFull
       }
-      console.log('authorId is ', author);
-
       res.render('show_book', { book })
     })
   })
@@ -107,7 +103,6 @@ router.put ('/:id', function(req, res, next) {
   .update('book', '*')
   .where('id', id)
   .then((result) => {
-    console.log('*********UPDATE ONE BOOK ')
   })
   .catch((err) => {
     res.send(err)
