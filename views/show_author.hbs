@@ -1,18 +1,18 @@
 <div class="container">
-<div class="row"></div>
-<div class="row"></div>
+  <div class="row"></div>
+  <div class="row"></div>
   <div class="row">
     <div class="col m6 offset-m3 center-align">
       <h3>{{ author.first_name }}<span> </span>{{ author.last_name }}</h3>
       <img src="{{ author.portrait_url }}"alt="{{ author.last_name }}" class="responsive-img">
       <h6>{{ author.biography }}</h6>
-      <a href="/authors/{{ author.id }}/edit" type="button" class="btn btn-success" name="button">Edit</a>
+      <a href="/authors/{{ author.authorId }}/edit" type="button" class="btn btn-success" name="button">Edit</a>
       <div class="btn-inline">
-        <form action="{{ this.id }}?_method=DELETE" method="POST"><input type="submit" class="btn btn-danger del-button" name="delete" value="Delete">
+        <form action="{{ this.authorId }}?_method=DELETE" method="POST"><input type="submit" class="btn btn-danger del-button" name="delete" value="Delete">
         </form>
       </div>
       <h4><a href="/books/{{ author.bookId }}"  name="button">{{author.book_title}}</a></h4>
 
-  </div>
+    </div>
   </div>
 </div>
