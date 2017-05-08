@@ -34,6 +34,26 @@ var knex = require('../db/connection')
   })
 })
 
+// ======== ADD ONE AUTHOR ========
+router.post('/', function (req, res, next) {
+  let error = {status: 400, message: 'Not a valid entry.'}
+  let itemToAdd = req.body
+
+  if (!(itemToAdd.name)) {
+    next(error)
+  } else {
+    knex('authors')
+    .insert(itemToAdd, '*')
+    .then((newItem) => {
+      let id = newItem[0]
+      res.redirect('/')
+    })
+    .catch((err) => {
+      console.error(err)
+      res.send(err)
+    })
+  }
+})
 // ======== DELETE ONE AUTHOR ========
 router.delete('/:id', (req, res, next) => {
   let id = req.params.id

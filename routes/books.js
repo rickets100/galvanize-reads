@@ -15,6 +15,11 @@ const knex = require('../db/connection')
   })
 })
 
+// ======== FORM ========
+router.get('/new', (req, res, next) => {
+  res.render('new')
+})
+
 // ===== GET ONE BOOK =====
   router.get('/:id', function(req, res, next) {
     console.log('req.params.id is ', req.params.id)
@@ -34,6 +39,28 @@ const knex = require('../db/connection')
   })
 })
 
+// ======== ADD ONE BOOK ========
+router.post('/', function (req, res, next) {
+  console.log('ADD ONE BOOK ', book)
+
+  let error = {status: 400, message: 'Not a valid entry.'}
+  let itemToAdd = req.body
+
+  if (!(itemToAdd.name)) {
+    next(error)
+  } else {
+    knex('books')
+    .insert(itemToAdd, '*')
+    .then((newItem) => {
+      let id = newItem[0]
+      res.redirect('/')
+    })
+    .catch((err) => {
+      console.error(err)
+      res.send(err)
+    })
+  }
+})
 // ======== DELETE ONE BOOK ========
 router.delete('/:id', (req, res, next) => {
   let id = req.params.id
