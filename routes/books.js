@@ -4,7 +4,6 @@ const knex = require('../db/connection')
 
 // ===== GET ALL BOOKS =====
   router.get('/', function(req, res, next) {
-    console.log('***********Get All Books')
   knex('books').select('*')
   .then(books => {
     res.render('books', { books })
@@ -22,17 +21,38 @@ router.get('/new', (req, res, next) => {
 
 // ===== GET ONE BOOK =====
   router.get('/:id', function(req, res, next) {
-    console.log('req.params.id is ', req.params.id)
+  let bookId = req.params.id
 
-  let id = req.params.id
 
   knex('books')
   .select('*')
-  .where('id', id)
+  .where('id', bookId)
   .first()
-  .then(book => {
-    console.log('get one book, book is ', book)
-    res.render('show_book', { book })
+  .then(bookInfo => {
+    knex('books_authors')
+    .innerJoin('authors', 'authors.id', 'books_authors.author_id')
+    .select('*')
+    .where('books_authors.book_id', bookInfo.id)
+    .then(author => {
+      let authorFirst = author[0].first_name
+      let authorLast = author[0].last_name
+      let authorFull = `${authorFirst} ${authorLast}`
+
+      let book = {
+        bookId: bookInfo.id,
+        title: bookInfo.title,
+        genre: bookInfo.genre,
+        description: bookInfo.description,
+        cover_url: bookInfo.cover_url,
+        authorId: author[0].id,
+        author_first: authorFirst,
+        author_last: authorLast,
+        author_full: authorFull
+      }
+      console.log('authorId is ', author);
+
+      res.render('show_book', { book })
+    })
   })
   .catch((err) => {
     next(err)
@@ -57,17 +77,15 @@ router.post('/', function (req, res, next) {
 
   let error = {status: 400, message: 'Not a valid entry.'}
   let itemToAdd = req.body
-  console.log('*********ADD ONE BOOK ', itemToAdd)
 
   if (!(itemToAdd.title)) {
     next(error)
   } else {
-    console.log('made it to the else statement');
     knex('books')
     .insert(itemToAdd, '*')
     .then((newItem) => {
       let id = newItem[0]
-      res.redirect('/')
+      res.redirect('/books')
     })
     .catch((err) => {
       console.error(err)
@@ -75,6 +93,27 @@ router.post('/', function (req, res, next) {
     })
   }
 })
+
+// ======== UPDATE ONE BOOK ========
+router.put ('/:id', function(req, res, next) {
+  let id = req.params.id
+  let message = {
+    title: req.body.title,
+    genre: req.body.genre,
+    description: req.body.description,
+    cover_url: req.body.cover_url
+  }
+  knex('books')
+  .update('book', '*')
+  .where('id', id)
+  .then((result) => {
+    console.log('*********UPDATE ONE BOOK ')
+  })
+  .catch((err) => {
+    res.send(err)
+  })
+})
+
 // ======== DELETE ONE BOOK ========
 router.delete('/:id', (req, res, next) => {
   let id = req.params.id
@@ -90,8 +129,4 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
-// let truckSched = knex('books_authors')
-// .innerJoin('books', 'books.id', 'books_authors.book_id')
-// .where('books_authors.book_id', id)
-// .select('books.title', 'books_authors.author_id')
 module.exports = router

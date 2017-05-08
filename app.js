@@ -1,18 +1,18 @@
-var express = require('express')
-var path = require('path')
-var favicon = require('serve-favicon')
-var logger = require('morgan')
+const express = require('express')
+const path = require('path')
+const favicon = require('serve-favicon')
+const logger = require('morgan')
 // var cookieParser = require('cookie-parser')
-var bodyParser = require('body-parser')
-var methodOverride = require('method-override')
-var hbs = require('hbs')
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
+const hbs = require('hbs')
 
 // ===== PATHS & SUCH =====
-var index = require('./routes/index')
-var books = require('./routes/books')
-var authors = require('./routes/authors')
+const index = require('./routes/index')
+const books = require('./routes/books')
+const authors = require('./routes/authors')
 
-var app = express()
+const app = express()
 
 // ===== VIEW ENGINE SETUP =====
 app.set('views', path.join(__dirname, 'views'))

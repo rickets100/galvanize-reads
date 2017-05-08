@@ -1,11 +1,11 @@
 <h1>Add an Author</h1>
 
-<form method="POST" action="/{{#if author.id }}{{ author.id }}?_method=PUT{{/if}}" class="well">
+<form method="POST" action="/authors/{{#if author.id }}{{ author.id }}?_method=PUT{{/if}}" class="well">
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label for="first_name">First Name</label>
-        <input type="text" name="first_name" class="form-control" id="first_name" placeholder="Title" value="{{ author.first_name }}">
+        <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name" value="{{ author.first_name }}">
       </div>
     </div>
     <div class="col-md-6">

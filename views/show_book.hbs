@@ -1,5 +1,7 @@
 <div class="container">
 <div class="row"></div>
+<a href="/authors/{{ book.authorId }}"  name="button">{{book.author_full}}</a>
+
 <div class="row"></div>
   <div class="row">
     <div class="col m6 offset-m3 center-align">
@@ -7,9 +9,9 @@
       <img src="{{ book.cover_url }}"alt="{{ book.title }}" class="responsive-img">
       <h5>{{ book.genre }}</h5>
       <h6>{{ book.description }}</h6>
-      <a href="/books/{{ book.id }}/edit" type="button" class="btn btn-success" name="button">Edit</a>
+      <a href="/books/{{ book.bookId }}/edit" type="button" class="btn btn-success" name="button">Edit</a>
       <div class="btn-inline">
-        <form action="{{ this.id }}?_method=DELETE" method="POST"><input type="submit" class="btn btn-danger del-button" name="delete" value="Delete">
+        <form action="{{ this.bookId }}?_method=DELETE" method="POST"><input type="submit" class="btn btn-danger del-button" name="delete" value="Delete">
         </form>
       </div>
   </div>

@@ -1,6 +1,6 @@
-var express = require('express')
-var router = express.Router()
-var knex = require('../db/connection')
+const express = require('express')
+const router = express.Router()
+const knex = require('../db/connection')
 
 // ===== GET ALL AUTHORS =====
   router.get('/', function(req, res, next) {
@@ -38,9 +38,8 @@ router.get('/new', (req, res, next) => {
 
 // ===== EDIT AN AUTHOR =====
 router.get('/:id/edit', (req, res, next) => {
-  console.log('*********** EDIT AN AUTHOR')
 
-  var id = req.params.id
+  let id = req.params.id
 
   knex('authors')
   .select('*')
@@ -53,19 +52,17 @@ router.get('/:id/edit', (req, res, next) => {
 
 // ======== ADD ONE AUTHOR ========
 router.post('/', function (req, res, next) {
-  console.log('*********** ADD AN AUTHOR Form')
-
   let error = {status: 400, message: 'Not a valid entry.'}
   let itemToAdd = req.body
 
-  if (!(itemToAdd.name)) {
+  if (!(itemToAdd.last_name)) {
     next(error)
   } else {
     knex('authors')
     .insert(itemToAdd, '*')
     .then((newItem) => {
       let id = newItem[0]
-      res.redirect('/')
+      res.redirect('/authors')
     })
     .catch((err) => {
       console.error(err)
@@ -73,6 +70,7 @@ router.post('/', function (req, res, next) {
     })
   }
 })
+
 // ======== DELETE ONE AUTHOR ========
 router.delete('/:id', (req, res, next) => {
   let id = req.params.id
