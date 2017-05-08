@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    {{{body}}}
-  </body>
-</html>
+<div class="row"></div>
+<div class="row"></div>
+<div class="container">
+  <p>books.hbs page</p>
+  <div class="row">
+    {{#each books}}
+    <div class="row col s3 center-align">
+      <div>
+        <a href="/books/{{this.id}}"><img src="{{this.cover_url}}" class="responsive-img" alt="{{this.title }}"></a>
+        <div class="lower">
+          <a href="/books/{{this.id}}"><h5>{{ this.title}}</h5></a>
+          <h6>{{this.genre}}</h6>
+          <h6>{{this.description}}</h6>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  <br>
+</div>
